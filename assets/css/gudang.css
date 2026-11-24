@@ -1,0 +1,117 @@
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Login */
+.login-gudang {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: #f3f6fb;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    padding: 38px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(31, 41, 55, .09);
+}
+
+.login-icon {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: #e7f0ff;
+    color: #2563eb;
+    font-size: 25px;
+}
+
+.brand-name {
+    text-align: center;
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+.login-card h3 {
+    text-align: center;
+    font-size: 23px;
+    font-weight: 800;
+    color: #1f2937;
+}
+
+.login-desc {
+    text-align: center;
+    color: #8a93a6;
+    font-size: 13px;
+    margin-bottom: 28px;
+}
+
+.login-card label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.login-card .form-control,
+.login-card .input-group-text {
+    height: 44px;
+    background: #f9fafb;
+    border-color: #e5e7eb;
+}
+
+.login-card .btn {
+    height: 45px;
+    border-radius: 8px;
+    font-weight: 600;
+    background: #2563eb;
+    border-color: #2563eb;
+}
+
+.login-footer {
+    margin-top: 26px;
+    text-align: center;
+    color: #a0a8b6;
+    font-size: 11px;
+}
+
+/* Dashboard */
+.gudang-stat {
+    min-height: 125px;
+    border-radius: 10px;
+    box-shadow: 0 1px 6px rgba(20,30,60,.06);
+}
+
+.gudang-stat .inner {
+    padding: 20px;
+}
+
+.gudang-stat .inner p {
+    color: #8a93a6;
+    font-size: 13px;
+}
+
+.gudang-stat .inner h3 {
+    color: #1f2937;
+    font-weight: 800;
+}
+
+.gudang-stat .icon {
+    top: 20px;
+    right: 18px;
+    color: #dbeafe;
+}
+
+.gudang-stat .icon i {
+    font-size: 42px;
+}
