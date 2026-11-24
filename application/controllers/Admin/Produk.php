@@ -1,5 +1,5 @@
 <?php
-class Produk extends CI_Controller {
+class Dashboard extends Admin_Controller {
 
 private function tampil($view, $data) {
     $this->load->model('Pesanan_model');

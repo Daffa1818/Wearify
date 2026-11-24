@@ -13,27 +13,12 @@
               <i class="nav-icon fas fa-tachometer-alt"></i><p>Dashboard</p>
             </a>
           </li>
-
-          <li class="nav-header">TOKO</li>
-            <li class="nav-item">
-            <a href="<?= base_url('index.php/admin/produk') ?>" class="nav-link <?= $menu == 'produk' ? 'active' : '' ?>">
-                <i class="nav-icon fas fa-box"></i><p>Produk</p>
-            </a>
-            </li>
           <li class="nav-item">
             <a href="<?= base_url('index.php/admin/pesanan') ?>" class="nav-link <?= $menu == 'pesanan' ? 'active' : '' ?>">
               <i class="nav-icon fas fa-shopping-cart"></i>
               <p>Pesanan <span class="badge badge-danger right"><?= $pesanan_baru ?></span></p>
             </a>
           </li>
-
-          <li class="nav-header">LAINNYA</li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fab fa-whatsapp"></i><p>Pengaturan WhatsApp</p>
-            </a>
-          </li>
-        </ul>
       </nav>
     </div>
   </aside>
