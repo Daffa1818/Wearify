@@ -2,16 +2,40 @@
 class Pesanan_model extends CI_Model {
 
 public function simpan($data) {
-    // Cari harga di gudang berdasarkan nama produk
-    $barang = $this->db->like('nama_barang', $data['produk'])->get('barang')->row();
-    $data['harga'] = $barang ? (int)$barang->harga : 0;
+    $this->load->model('Barang_model');
+
+    // Cari barang di gudang: nama persis dulu, lalu yang mirip
+    $barang = null;
+    if (!empty($data['produk'])) {
+        $barang = $this->db->where('nama_barang', $data['produk'])->get('barang')->row_array();
+        if (!$barang) {
+            $barang = $this->db->like('nama_barang', $data['produk'])->get('barang')->row_array();
+        }
+    }
+
+    $data['harga']     = $barang ? (int)$barang['harga'] : 0;
+    $data['id_barang'] = $barang ? (int)$barang['id_barang'] : null;
 
     $this->db->insert('pesanan', $data);
-    $id = $this->db->insert_id();
+    $id   = $this->db->insert_id();
+    $kode = 'WF-' . date('Ymd') . '-' . str_pad($id, 4, '0', STR_PAD_LEFT);
+    $this->db->where('id', $id)->update('pesanan', ['kode' => $kode]);
 
-    $this->db->where('id', $id)->update('pesanan', [
-        'kode' => 'WF-' . date('Ymd') . '-' . str_pad($id, 4, '0', STR_PAD_LEFT)
-    ]);
+    // Kurangi stok gudang lewat Barang Keluar (hanya pesanan yang terbaca benar)
+    $this->hasil_gudang = 'tidak_ditemukan';
+    if ($barang && $data['status'] == 'Baru') {
+        $hasil = $this->Barang_model->tambah_keluar([
+            'id_barang'  => $barang['id_barang'],
+            'jumlah'     => (int)$data['jumlah'],
+            'tanggal'    => date('Y-m-d'),
+            'keterangan' => 'Pesanan ' . $kode . ' a.n. ' . $data['nama'],
+        ]);
+
+        if ($hasil === true)                    $this->hasil_gudang = 'ok';
+        elseif ($hasil === 'stok_tidak_cukup')  $this->hasil_gudang = 'stok_kurang';
+        else                                    $this->hasil_gudang = 'gagal';
+    }
+
     return $id;
 }
 

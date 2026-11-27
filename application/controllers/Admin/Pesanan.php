@@ -30,30 +30,42 @@ class Pesanan extends Admin_Controller {
         $this->tampil('Admin/pesanan/input', $data);
     }
 
-    public function simpan() 
-    {
-        $pesan = trim($this->input->post('pesan'));
-        if ($pesan == '') {
-            $this->session->set_flashdata('error', 'Isi chat tidak boleh kosong.');
-            redirect('admin/pesanan/input');
-        }
-
-        $hasil = $this->Pesanan_model->parsing($pesan);
-        $valid = ($hasil['nama'] != '' && $hasil['produk'] != '');
-
-        $hasil['no_wa']      = $this->input->post('no_wa');
-        $hasil['pesan_asli'] = $pesan;
-        $hasil['status']     = $valid ? 'Baru' : 'Gagal Parsing';
-
-        $this->Pesanan_model->simpan($hasil);
-
-        if ($valid) {
-            $this->session->set_flashdata('sukses', 'Pesanan atas nama ' . $hasil['nama'] . ' berhasil disimpan.');
-        } else {
-            $this->session->set_flashdata('error', 'Format tidak terbaca, disimpan dengan status Gagal Parsing.');
-        }
-        redirect('admin/pesanan');
+public function simpan() {
+    $pesan = trim($this->input->post('pesan'));
+    if ($pesan == '') {
+        $this->session->set_flashdata('error', 'Isi chat tidak boleh kosong.');
+        redirect('admin/pesanan/input');
     }
+
+    $hasil = $this->Pesanan_model->parsing($pesan);
+    $valid = ($hasil['nama'] != '' && $hasil['produk'] != '');
+
+    $hasil['no_wa']      = $this->input->post('no_wa');
+    $hasil['pesan_asli'] = $pesan;
+    $hasil['status']     = $valid ? 'Baru' : 'Gagal Parsing';
+
+    $this->Pesanan_model->simpan($hasil);
+
+    if (!$valid) {
+        $this->session->set_flashdata('error', 'Format tidak terbaca, disimpan dengan status Gagal Parsing.');
+    } else {
+        $pesanan_ok = 'Pesanan atas nama ' . $hasil['nama'] . ' berhasil disimpan.';
+        switch ($this->Pesanan_model->hasil_gudang) {
+            case 'ok':
+                $this->session->set_flashdata('sukses', $pesanan_ok . ' Stok gudang otomatis berkurang.');
+                break;
+            case 'stok_kurang':
+                $this->session->set_flashdata('error', $pesanan_ok . ' Tapi stok gudang TIDAK cukup, stok belum dikurangi.');
+                break;
+            case 'tidak_ditemukan':
+                $this->session->set_flashdata('error', $pesanan_ok . ' Tapi produk "' . $hasil['produk'] . '" tidak ditemukan di gudang, stok tidak berubah.');
+                break;
+            default:
+                $this->session->set_flashdata('error', $pesanan_ok . ' Tapi stok gudang gagal diperbarui.');
+        }
+    }
+    redirect('admin/pesanan');
+}
 
     public function status($id, $status) 
     {
