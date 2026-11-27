@@ -65,6 +65,11 @@
                            placeholder="Masukkan stok awal"
                            required>
                 </div>
+                <div class="form-group">
+                <label>Harga</label>
+                <input type="number" name="harga" class="form-control" min="0"
+                        value="<?= isset($barang['harga']) ? $barang['harga'] : '' ?>" placeholder="Masukkan harga">
+                </div>
 
             <?php else: ?>
 

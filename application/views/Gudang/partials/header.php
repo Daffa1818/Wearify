@@ -90,6 +90,13 @@
                             <p>Barang Keluar</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="<?= site_url('Admin/dashboard') ?>"
+                           class="nav-link <?= $active_menu == 'admin' ? 'active' : '' ?>">
+                            <i class="nav-icon fas fa-user-shield"></i>
+                            <p>Admin</p>
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>

@@ -1,14 +1,19 @@
 <?php
 class Pesanan_model extends CI_Model {
 
-    public function simpan($data) {
-        $this->db->insert('pesanan', $data);
-        $id = $this->db->insert_id();
-        $this->db->where('id', $id)->update('pesanan', [
-            'kode' => 'WF-' . str_pad($id, 4, '0', STR_PAD_LEFT)
-        ]);
-        return $id;
-    }
+public function simpan($data) {
+    // Cari harga di gudang berdasarkan nama produk
+    $barang = $this->db->like('nama_barang', $data['produk'])->get('barang')->row();
+    $data['harga'] = $barang ? (int)$barang->harga : 0;
+
+    $this->db->insert('pesanan', $data);
+    $id = $this->db->insert_id();
+
+    $this->db->where('id', $id)->update('pesanan', [
+        'kode' => 'WF-' . date('Ymd') . '-' . str_pad($id, 4, '0', STR_PAD_LEFT)
+    ]);
+    return $id;
+}
 
     public function semua() {
         return $this->db->order_by('id', 'DESC')->get('pesanan')->result();

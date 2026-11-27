@@ -58,6 +58,7 @@ Nama:
 Produk:
 Ukuran:
 Jumlah:
+Harga:
 Alamat:
 Catatan:
             </pre>

@@ -1,4 +1,3 @@
-
 <?php $this->load->view('Gudang/partials/header'); ?>
 
 <!-- Notifikasi -->
@@ -42,6 +41,7 @@
                     <th>Nama Barang</th>
                     <th>Kategori</th>
                     <th>Stok</th>
+                    <th>Harga</th>
                     <th>Lokasi Rak</th>
                     <th>Keterangan</th>
                     <th>Aksi</th>
@@ -63,6 +63,10 @@
 
                         <td>
                             <strong><?= $item['stok'] ?></strong>
+                        </td>
+
+                        <td>
+                            Rp <?= number_format(isset($item['harga']) ? (int)$item['harga'] : 0, 0, ',', '.') ?>
                         </td>
 
                         <td><?= html_escape($item['lokasi']) ?></td>
@@ -108,7 +112,7 @@
                 <?php else: ?>
 
                     <tr>
-                        <td colspan="7" class="text-center">
+                        <td colspan="8" class="text-center">
                             Belum ada data barang.
                         </td>
                     </tr>

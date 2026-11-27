@@ -115,6 +115,7 @@
                     <th>Kode Barang</th>
                     <th>Nama Barang</th>
                     <th>Jumlah</th>
+                    <th>Harga</th>
                     <th>Keterangan</th>
                     <th>Aksi</th>
                 </tr>
@@ -130,12 +131,15 @@
                     <tr>
                         <td><?= $no++ ?></td>
                         <td><?= html_escape($item['tanggal']) ?></td>
-                        <td><?= html_escape($item['kode_barang']) ?></td>
+                        <td><?= html_escape($item['kode_barang']) . '-' . date('Ymd', strtotime($item['tanggal'])) ?></td>
                         <td><?= html_escape($item['nama_barang']) ?></td>
                         <td><?= $item['jumlah'] ?></td>
+                        <td>
+                            <?php $harga = isset($item['harga']) ? (int)$item['harga'] : 0; ?>
+                            Rp <?= number_format($harga * $item['jumlah'], 0, ',', '.') ?>
+                            <div class="text-muted small">@ Rp <?= number_format($harga, 0, ',', '.') ?></div>
+                        </td>
                         <td><?= html_escape($item['keterangan'] ?? '') ?></td>
-
-                        
                         <td>
                             <a href="<?= site_url('gudang/edit_barang_keluar/' . $item['id_keluar']) ?>"
                                class="btn btn-warning btn-sm">
@@ -159,7 +163,7 @@
                 <?php else: ?>
 
                     <tr>
-                        <td colspan="7" class="text-center">
+                        <td colspan="8" class="text-center">
                             Belum ada transaksi barang keluar.
                         </td>
                     </tr>

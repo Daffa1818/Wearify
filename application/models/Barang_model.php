@@ -1,4 +1,3 @@
-
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -44,7 +43,7 @@ class Barang_model extends CI_Model {
     // Mengambil seluruh riwayat barang masuk
     public function get_barang_masuk() {
 
-        $this->db->select('barang_masuk.*, barang.kode_barang, barang.nama_barang');
+        $this->db->select('barang_masuk.*, barang.kode_barang, barang.nama_barang, barang.harga');
         $this->db->from('barang_masuk');
         $this->db->join(
             'barang',
@@ -234,7 +233,7 @@ class Barang_model extends CI_Model {
     // Mengambil seluruh riwayat barang keluar
     public function get_barang_keluar() {
 
-        $this->db->select('barang_keluar.*, barang.kode_barang, barang.nama_barang');
+        $this->db->select('barang_keluar.*, barang.kode_barang, barang.nama_barang, barang.harga');
         $this->db->from('barang_keluar');
         $this->db->join(
             'barang',

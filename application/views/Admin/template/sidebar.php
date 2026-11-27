@@ -19,6 +19,13 @@
               <p>Pesanan <span class="badge badge-danger right"><?= $pesanan_baru ?></span></p>
             </a>
           </li>
+                    <li class="nav-header">GUDANG</li>
+          <li class="nav-item">
+            <a href="<?= base_url('index.php/gudang/persediaan') ?>" class="nav-link">
+              <i class="nav-icon fas fa-warehouse"></i>
+              <p>Gudang</p>
+            </a>
+          </li>
       </nav>
     </div>
   </aside>

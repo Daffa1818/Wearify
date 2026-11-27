@@ -194,6 +194,7 @@ public function simpan_barang()
             'Gagal menambahkan barang!'
         );
     }
+    $data['harga'] = (int)$this->input->post('harga');
 
     redirect('gudang/persediaan');
 }

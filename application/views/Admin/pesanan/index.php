@@ -94,6 +94,7 @@ function nomor_wa($no) {
                 <th class="pl-4">Kode</th>
                 <th>Pembeli</th>
                 <th>Produk</th>
+                <th>Harga</th>
                 <th>Alamat</th>
                 <th>Status</th>
                 <th>Waktu</th>
@@ -116,6 +117,14 @@ function nomor_wa($no) {
                   <td class="cari-teks">
                     <div><?= htmlspecialchars($p->produk ?: '-') ?></div>
                     <div class="sub">Ukuran <?= $p->ukuran ?: '-' ?> &middot; <?= $p->jumlah ?> pcs</div>
+                  </td>
+                    <td>
+                    <?php if ($p->harga > 0): ?>
+                      <div class="font-weight-bold">Rp <?= number_format($p->harga * $p->jumlah, 0, ',', '.') ?></div>
+                      <div class="sub">@ Rp <?= number_format($p->harga, 0, ',', '.') ?></div>
+                    <?php else: ?>
+                      <span class="sub">-</span>
+                    <?php endif; ?>
                   </td>
                   <td style="max-width:220px;white-space:normal"><?= htmlspecialchars($p->alamat ?: '-') ?></td>
                   <td><span class="badge badge-soft-<?= $warna[$p->status] ?>"><?= $p->status ?></span></td>
@@ -179,6 +188,7 @@ function nomor_wa($no) {
         <table class="table table-sm table-borderless mb-3">
           <tr><td class="text-muted" style="width:90px">Pembeli</td><td id="dNama"></td></tr>
           <tr><td class="text-muted">Produk</td><td id="dProduk"></td></tr>
+          <tr><td class="text-muted">Harga</td><td id="dHarga"></td></tr>
           <tr><td class="text-muted">Ukuran</td><td id="dUkuran"></td></tr>
           <tr><td class="text-muted">Jumlah</td><td id="dJumlah"></td></tr>
           <tr><td class="text-muted">Alamat</td><td id="dAlamat"></td></tr>
